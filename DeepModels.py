@@ -1,12 +1,11 @@
-
-
-
-
 import re
 import spacy
 import pandas as pd
 from nltk.corpus import stopwords
 from collections import Counter
+
+
+
 nlp = spacy.load(
     "en_core_web_lg"
 )
@@ -47,13 +46,14 @@ for train_index, valid_index in sss.split(lista_tekst, lista_label):
 
 print(len(df_test), len(df_valid), len(df_train))
 
+
 from gensim.models import KeyedVectors
 from gensim import models
 from gensim.utils import simple_preprocess
 
 word2vec_path = '../GoogleNews-vectors-negative300.bin'
-model = models.KeyedVectors.load_word2vec_format(word2vec_path, binary = True)
-
+print("gotov")
+model = models.KeyedVectors.load_word2vec_format(word2vec_path, binary = True, unicode_errors='replace')
 
 def W2Vvectorize(train):
     corpus_text = '\n'.join(train)
@@ -109,4 +109,5 @@ lista_label = np.array(df_train["label"])
 lista_label = le.fit_transform(lista_label)
 
 nova_lista = W2Vvectorize(df_train["text"])
+
 
