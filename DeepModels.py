@@ -53,7 +53,12 @@ from gensim.utils import simple_preprocess
 
 word2vec_path = '../GoogleNews-vectors-negative300.bin'
 print("gotov")
-model = models.KeyedVectors.load_word2vec_format(word2vec_path, binary = True, unicode_errors='replace')
+load_only = True
+if load_only:
+    model = models.KeyedVectors.load('vectors.kv')
+else:
+    model = models.KeyedVectors.load_word2vec_format(word2vec_path, binary = True, unicode_errors='replace')
+#breakpoint()
 
 def W2Vvectorize(train):
     corpus_text = '\n'.join(train)
@@ -109,5 +114,72 @@ lista_label = np.array(df_train["label"])
 lista_label = le.fit_transform(lista_label)
 
 nova_lista = W2Vvectorize(df_train["text"])
+
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+import numpy as np
+from matplotlib import pyplot as plt
+from matplotlib.colors import ListedColormap
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import make_moons, make_circles, make_classification
+from sklearn.neural_network import MLPClassifier
+from sklearn.pipeline import make_pipeline
+
+
+
+h = .02  # step size in the mesh
+
+alphas = np.logspace(-1, 1, 5)
+
+classifiers = []
+names = []
+for alpha in alphas:
+    classifiers.append(make_pipeline(
+        StandardScaler(),
+        MLPClassifier(
+            solver='lbfgs', alpha=alpha, random_state=1, max_iter=2000,
+            early_stopping=True, hidden_layer_sizes=[100, 100],
+        )
+    ))
+    names.append(f"alpha {alpha:.2f}")
+
+lista_label_test = np.array(df_test["label"])
+lista_label_test = le.fit_transform(lista_label_test)
+nova_lista_test = W2Vvectorize(df_test["text"])
+
+for name, clf in zip(names, classifiers):
+    clf.fit(nova_lista, lista_label)
+   
+    print(str(name) + " results:")
+    print("Test:"+str(clf.score(nova_lista_test,lista_label_test)))
+    print("Training:"+str(clf.score(nova_lista, lista_label)))
+    print('---------------------------------------------')
+    
+#clf = MLPClassifier(random_state=1, max_iter=300)
+#clf = MLPClassifier(solver='lbfgs', 
+#                    alpha=1e-5,
+#                    hidden_layer_sizes=(20,20,20,20), 
+#                    random_state=1,
+#                    max_iter=500)
+
+#clf = MLPClassifier(hidden_layer_sizes=(100, ), 
+#                    max_iter=480, alpha=1e-4,
+#                    solver='sgd', verbose=10, 
+#                    tol=1e-4, random_state=1,
+#                    learning_rate_init=.1)
+
+
+clf.fit(nova_lista, lista_label)
+
+print("Training:"+str(clf.score(nova_lista, lista_label)))
+
+lista_label_test = np.array(df_test["label"])
+lista_label_test = le.fit_transform(lista_label_test)
+nova_lista_test = W2Vvectorize(df_test["text"])
+
+print("Test:"+str(clf.score(nova_lista_test,lista_label_test)))
+evaluate(clf, df_test.text, lista_label_test)
+
 
 
