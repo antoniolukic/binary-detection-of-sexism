@@ -7,12 +7,10 @@ Problem A involves creating accurate, explainable models for detecting online se
 
 ## Approaches
 Various approaches have been explored to solve this problem, including:
-- SVM + Word2Vec
-- SVM + TF-IDF
-- Deep learning models
-- Transformers
-
-[Provide additional details on each approach if necessary.]
+- **SVM + Word2Vec**: Support Vector Machine (SVM) models with Word2Vec embeddings, representing words as dense vectors for classification
+- **SVM + TF-IDF**: Support Vector Machine models with TF-IDF representations, weighing word importance in documents for classification
+- **Deep learning models**: MLPClassifier
+- **Transformers**: BERT
 
 ## Contributors
 - Jerko Šegvić
