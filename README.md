@@ -1,6 +1,20 @@
 # ProjektR
 
-#### created by Jerko Šegvić, Antonio Lukić and Marija Anđelić
+This project addresses Problem A from the Semval competition, accessible at [Semval Competition](https://codalab.lisn.upsaclay.fr/competitions/7124). It is developed as a part of the ProjectR subject at FER (Faculty of Electrical Engineering and Computing).
 
-Solving problem A from Semval competition: https://codalab.lisn.upsaclay.fr/competitions/7124 as a part of ProjectR subject at FER.
-Approaches solving this problem: SVM + Word2Vec, SVM + TF-IDF, deep models, transformers.
+## Problem Description
+Problem A involves creating accurate, explainable models for detecting online sexism directed at women based on their gender or other identity attributes. This task, called Explainable Detection of Online Sexism (EDOS), aims to improve interpretation and trust in automated tools, empowering users and moderators to combat online sexism effectively.
+
+## Approaches
+Various approaches have been explored to solve this problem, including:
+- SVM + Word2Vec
+- SVM + TF-IDF
+- Deep learning models
+- Transformers
+
+[Provide additional details on each approach if necessary.]
+
+## Contributors
+- Jerko Šegvić
+- Antonio Lukić
+- Marija Anđelić
